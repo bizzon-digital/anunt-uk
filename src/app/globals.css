@@ -7,3 +7,8 @@
     background-color: #FAF7F2;
   }
 }
+/* Marire fonturi globala */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
