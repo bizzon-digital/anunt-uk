@@ -251,12 +251,12 @@ export default function MessagesClient({
                         <p className={cn("text-sm truncate", unread > 0 ? "font-semibold text-gray-900" : "font-medium text-gray-700")}>
                           {other?.full_name || "Utilizator"}
                         </p>
-                        <span className="text-[10px] text-gray-400 flex-shrink-0 ml-1">
-                          {timeAgo(conv.last_message_at)}
-                        </span>
+                        <span className="text-xs text-gray-400 flex-shrink-0 ml-1">
+  {timeAgo(conv.last_message_at)}
+</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <p className="text-xs text-gray-400 truncate">{conv.last_message || "Conversatie noua"}</p>
+                        <p className="text-sm text-gray-600 truncate">{conv.last_message || "Conversatie noua"}</p>
                         {unread > 0 && (
                           <span className="ml-1 bg-[#E36414] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0">
                             {unread}
@@ -264,9 +264,9 @@ export default function MessagesClient({
                         )}
                       </div>
                       {conv.listing && (
-                        <p className="text-[10px] text-[#2D6A4F] truncate mt-0.5">
-                          Re: {conv.listing.title}
-                        </p>
+                        <p className="text-sm text-[#2D6A4F] truncate mt-0.5">
+  Re: {conv.listing.title}
+</p>
                       )}
                     </div>
                   </button>
