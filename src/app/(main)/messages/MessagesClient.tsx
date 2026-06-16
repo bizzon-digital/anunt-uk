@@ -184,7 +184,7 @@ export default function MessagesClient({
   }, 0);
 
   return (
-    <div className="w-full h-[calc(100vh-57px)] flex flex-col overflow-x-hidden">
+    <div className="max-w-6xl mx-auto w-full h-[calc(100vh-57px)] flex flex-col overflow-x-hidden">
       <div className="flex flex-1 overflow-hidden">
 
         {/* LISTA CONVERSATII */}
