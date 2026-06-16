@@ -62,6 +62,40 @@ export async function PATCH(request: NextRequest) {
   return NextResponse.json({ listing: data });
 }
 
+import { sendListingApprovedEmail, sendListingRejectedEmail } from "@/lib/emails";
+
+// Dupa update status
+if (status === "active") {
+  const { data: listing } = await adminSupabase
+    .from("listings")
+    .select("title, slug, profiles(email, full_name)")
+    .eq("id", id)
+    .single() as { data: any };
+  
+  if (listing?.profiles?.email) {
+    await sendListingApprovedEmail(
+      listing.profiles.email,
+      listing.profiles.full_name || "utilizator",
+      listing.title,
+      listing.slug
+    );
+  }
+} else if (status === "rejected") {
+  const { data: listing } = await adminSupabase
+    .from("listings")
+    .select("title, profiles(email, full_name)")
+    .eq("id", id)
+    .single() as { data: any };
+  
+  if (listing?.profiles?.email) {
+    await sendListingRejectedEmail(
+      listing.profiles.email,
+      listing.profiles.full_name || "utilizator",
+      listing.title
+    );
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
