@@ -362,19 +362,19 @@ export default function MessagesClient({
                     const isMine = msg.sender_id === currentUserId;
                     return (
                       <div key={msg.id} className={cn("flex w-full min-w-0", isMine ? "justify-end" : "justify-start")}>
-                        <div className={cn(
-  "max-w-[70%] sm:max-w-[75%] rounded-2xl px-3 py-2.5 break-words min-w-0",
-  isMine
-    ? "bg-[#2D6A4F] text-white rounded-br-sm"
-    : "bg-white border border-gray-100 text-gray-900 rounded-bl-sm"
-)}>
-  <p className="text-base leading-relaxed break-words">{msg.content}</p>
-  <p className={cn("text-xs mt-1 text-right", isMine ? "text-white/60" : "text-gray-400")}>
-    {timeAgo(msg.created_at)}
-    {isMine && msg.read && <span className="ml-1">✓✓</span>}
-  </p>
+  <div className={cn(
+    "max-w-[85%] rounded-2xl px-3 py-2.5 break-words min-w-0",
+    isMine
+      ? "bg-[#2D6A4F] text-white rounded-br-sm"
+      : "bg-white border border-gray-100 text-gray-900 rounded-bl-sm"
+  )}>
+    <p className="text-base leading-relaxed break-words">{msg.content}</p>
+    <p className={cn("text-xs mt-1 text-right", isMine ? "text-white/60" : "text-gray-400")}>
+      {timeAgo(msg.created_at)}
+      {isMine && msg.read && <span className="ml-1">✓✓</span>}
+    </p>
+  </div>
 </div>
-                      </div>
                     );
                   })
                 )}
