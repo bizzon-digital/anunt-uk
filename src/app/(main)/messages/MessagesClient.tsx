@@ -151,15 +151,6 @@ export default function MessagesClient({
         ? activeConv.seller_id
         : activeConv.buyer_id;
 
-      await supabase.from("notifications").insert({
-        user_id: otherUserId,
-        type: "message",
-        title: "Mesaj nou",
-        body: content.length > 50 ? content.substring(0, 50) + "..." : content,
-        link: "/messages",
-        read: false,
-      });
-
       const { data: senderProfile } = await supabase
         .from("profiles")
         .select("full_name")
