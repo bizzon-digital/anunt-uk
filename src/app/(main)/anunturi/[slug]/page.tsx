@@ -498,7 +498,9 @@ export default function AnuntPage() {
                 )}
               </div>
               <div>
-                <span className="font-semibold text-gray-900 text-sm">{anunt.profiles.full_name?.split(" ")[0]}</span>
+                <Link href={`/utilizator/${anunt.profiles.id}`} className="font-semibold text-gray-900 text-sm hover:text-[#2D6A4F] transition-colors">
+  {anunt.profiles.full_name?.split(" ")[0]}
+</Link>
                 {anunt.profiles.is_verified && (
                   <div className="mt-1">
                     <span className="text-[10px] bg-[#E8F4EF] text-[#2D6A4F] px-2 py-0.5 rounded font-medium">Verificat</span>
