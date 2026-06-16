@@ -184,7 +184,7 @@ export default function MessagesClient({
   }, 0);
 
   return (
-    <div className="max-w-6xl mx-auto h-[calc(100vh-57px)] flex flex-col">
+    <div className="w-full h-[calc(100vh-57px)] flex flex-col overflow-hidden">
       <div className="flex flex-1 overflow-hidden">
 
         {/* LISTA CONVERSATII */}
@@ -363,12 +363,12 @@ export default function MessagesClient({
                     return (
                       <div key={msg.id} className={cn("flex", isMine ? "justify-end" : "justify-start")}>
                         <div className={cn(
-  "max-w-[80%] rounded-2xl px-4 py-3",
+  "max-w-[75%] rounded-2xl px-4 py-3 break-words",
   isMine
     ? "bg-[#2D6A4F] text-white rounded-br-sm"
     : "bg-white border border-gray-100 text-gray-900 rounded-bl-sm"
 )}>
-  <p className="text-base leading-relaxed">{msg.content}</p>
+  <p className="text-base leading-relaxed break-words">{msg.content}</p>
   <p className={cn("text-xs mt-1 text-right", isMine ? "text-white/60" : "text-gray-400")}>
     {timeAgo(msg.created_at)}
     {isMine && msg.read && <span className="ml-1">✓✓</span>}
