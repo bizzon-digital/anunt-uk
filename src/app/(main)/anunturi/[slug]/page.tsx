@@ -238,10 +238,40 @@ export default function AnuntPage() {
                     </button>
                   )}
                   {anunt.contact_methods?.includes("message") && (
-                    <button className="border border-[#2D6A4F] text-[#2D6A4F] font-medium py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm">
-                      <MessageCircle size={18} /> Mesaj intern
-                    </button>
-                  )}
+  <button
+    onClick={async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { router.push("/auth"); return; }
+      if (user.id === anunt.user_id) { router.push("/messages"); return; }
+
+      const { data: existing } = await supabase
+        .from("conversations")
+        .select("id")
+        .eq("listing_id", anunt.id)
+        .eq("buyer_id", user.id)
+        .eq("seller_id", anunt.user_id)
+        .maybeSingle();
+
+      if (existing) {
+        router.push("/messages");
+        return;
+      }
+
+      await supabase.from("conversations").insert({
+        listing_id: anunt.id,
+        buyer_id: user.id,
+        seller_id: anunt.user_id,
+        last_message: "Conversatie noua",
+        last_message_at: new Date().toISOString(),
+      });
+
+      router.push("/messages");
+    }}
+    className="border border-[#2D6A4F] text-[#2D6A4F] font-medium py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm hover:bg-[#E8F4EF] transition-colors"
+  >
+    <MessageCircle size={18} /> Mesaj intern
+  </button>
+)}
                 </div>
                 <button onClick={handleSave} className="border border-gray-200 text-gray-500 font-medium py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm">
                   <Heart size={18} className={saved ? "fill-red-500 text-red-500" : ""} />
