@@ -191,11 +191,11 @@ export default function AnuntPage() {
           <div className="px-4 pt-4 lg:px-0">
             <div className="flex gap-2 flex-wrap mb-3">
               <span className="text-xs font-medium bg-[#E8F4EF] text-[#2D6A4F] px-2.5 py-1 rounded-full">{anunt.category}</span>
-              {anunt.postcode && (
-                <span className="text-xs font-medium bg-[#F0EBE3] text-gray-600 px-2.5 py-1 rounded-full flex items-center gap-1">
-                  <MapPin size={11} /> {anunt.postcode}
-                </span>
-              )}
+              {(anunt.location || anunt.postcode) && (
+  <span className="text-xs font-medium bg-[#F0EBE3] text-gray-600 px-2.5 py-1 rounded-full flex items-center gap-1">
+    <MapPin size={11} /> {anunt.location || anunt.postcode}
+  </span>
+)}
               {anunt.bills_included && (
                 <span className="text-xs font-medium bg-[#FFF0E6] text-[#E36414] px-2.5 py-1 rounded-full">Bills incluse</span>
               )}
@@ -377,7 +377,7 @@ export default function AnuntPage() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="font-semibold text-gray-900 text-sm">{anunt.profiles.full_name}</span>
+                  <span className="font-semibold text-gray-900 text-sm">{anunt.profiles.full_name?.split(" ")[0]}</span>
                   <div className="flex gap-1.5 mt-1">
                     {anunt.profiles.is_verified && (
                       <span className="text-[10px] bg-[#E8F4EF] text-[#2D6A4F] px-2 py-0.5 rounded font-medium flex items-center gap-1">
