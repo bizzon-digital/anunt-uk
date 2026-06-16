@@ -352,7 +352,7 @@ export default function MessagesClient({
                 </Link>
               )}
 
-              <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-2">
+              <div className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-3 overflow-x-hidden">
                 {messages.length === 0 ? (
                   <div className="flex-1 flex items-center justify-center">
                     <p className="text-sm text-gray-400">Niciun mesaj inca. Fii primul!</p>
@@ -363,17 +363,17 @@ export default function MessagesClient({
                     return (
                       <div key={msg.id} className={cn("flex", isMine ? "justify-end" : "justify-start")}>
                         <div className={cn(
-                          "max-w-[75%] rounded-2xl px-4 py-2.5",
-                          isMine
-                            ? "bg-[#2D6A4F] text-white rounded-br-sm"
-                            : "bg-white border border-gray-100 text-gray-900 rounded-bl-sm"
-                        )}>
-                          <p className="text-sm leading-relaxed">{msg.content}</p>
-                          <p className={cn("text-[10px] mt-1 text-right", isMine ? "text-white/60" : "text-gray-400")}>
-                            {timeAgo(msg.created_at)}
-                            {isMine && msg.read && <span className="ml-1">✓✓</span>}
-                          </p>
-                        </div>
+  "max-w-[80%] rounded-2xl px-4 py-3",
+  isMine
+    ? "bg-[#2D6A4F] text-white rounded-br-sm"
+    : "bg-white border border-gray-100 text-gray-900 rounded-bl-sm"
+)}>
+  <p className="text-base leading-relaxed">{msg.content}</p>
+  <p className={cn("text-xs mt-1 text-right", isMine ? "text-white/60" : "text-gray-400")}>
+    {timeAgo(msg.created_at)}
+    {isMine && msg.read && <span className="ml-1">✓✓</span>}
+  </p>
+</div>
                       </div>
                     );
                   })
