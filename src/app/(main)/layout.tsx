@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import Header from "@/components/layout/Header";
 import BottomNav from "@/components/layout/BottomNav";
 import Footer from "@/components/layout/Footer";
+import CookieBanner from "@/components/ui/CookieBanner";
 
 export const metadata: Metadata = {
   title: {
@@ -49,6 +50,7 @@ export default async function MainLayout({
       <Header user={user} profile={profile} />
       <main className="flex-1 pb-20 lg:pb-0">{children}</main>
       <Footer />
+      <CookieBanner />
       <BottomNav user={user} />
     </div>
   );
