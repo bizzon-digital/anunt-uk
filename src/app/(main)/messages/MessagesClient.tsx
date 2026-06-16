@@ -361,9 +361,9 @@ export default function MessagesClient({
                   messages.map((msg) => {
                     const isMine = msg.sender_id === currentUserId;
                     return (
-                      <div key={msg.id} className={cn("flex", isMine ? "justify-end" : "justify-start")}>
+                      <div key={msg.id} className={cn("flex w-full min-w-0", isMine ? "justify-end" : "justify-start")}>
                         <div className={cn(
-  "max-w-[75%] rounded-2xl px-4 py-3 break-words",
+  "max-w-[70%] sm:max-w-[75%] rounded-2xl px-3 py-2.5 break-words min-w-0",
   isMine
     ? "bg-[#2D6A4F] text-white rounded-br-sm"
     : "bg-white border border-gray-100 text-gray-900 rounded-bl-sm"
