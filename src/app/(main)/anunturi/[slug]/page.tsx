@@ -464,7 +464,27 @@ export default function AnuntPage() {
           )}
         </div>
       </div>
-
+{/* LOCALITATE + HARTA mobil */}
+{anunt.location && (
+  <div className="lg:hidden px-4 pb-4">
+    <div className="bg-white border border-gray-100 rounded-xl p-4">
+      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Localitate</p>
+      <div className="flex items-center gap-2 mb-3">
+        <MapPin size={16} className="text-[#E36414]" />
+        <span className="text-sm font-medium text-gray-900">{anunt.location}</span>
+      </div>
+      <div className="rounded-lg overflow-hidden h-32">
+        <iframe
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          loading="lazy"
+          src={`https://maps.google.com/maps?q=${encodeURIComponent(anunt.location + ", UK")}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+        />
+      </div>
+    </div>
+  </div>
+)}
       {/* USER CARD mobil */}
       {anunt.profiles && (
         <div className="lg:hidden px-4 pb-6">
