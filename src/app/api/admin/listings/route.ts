@@ -2,6 +2,7 @@ import { createAdminClient } from "@/lib/supabase/server";
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
+import { sendListingApprovedEmail, sendListingRejectedEmail } from "@/lib/emails";
 
 export async function PATCH(request: NextRequest) {
   const supabase = createClient();
@@ -28,9 +29,9 @@ export async function PATCH(request: NextRequest) {
 
   const { data: listing } = await adminSupabase
     .from("listings")
-    .select("user_id, title, slug")
+    .select("user_id, title, slug, profiles(email, full_name)")
     .eq("id", id)
-    .single();
+    .single() as { data: any };
 
   const { data, error } = await adminSupabase
     .from("listings")
@@ -44,7 +45,7 @@ export async function PATCH(request: NextRequest) {
   }
 
   if (listing && (status === "active" || status === "rejected")) {
-    await adminSupabase.from("notifications").insert({
+    await (adminSupabase.from("notifications") as any).insert({
       user_id: listing.user_id,
       type: status === "active" ? "listing_approved" : "listing_rejected",
       title: status === "active" ? "Anunt aprobat!" : "Anunt respins",
@@ -53,6 +54,23 @@ export async function PATCH(request: NextRequest) {
         : `Anuntul "${listing.title}" a fost respins.`,
       link: status === "active" ? `/anunturi/${listing.slug}` : null,
     });
+
+    if (listing.profiles?.email) {
+      if (status === "active") {
+        await sendListingApprovedEmail(
+          listing.profiles.email,
+          listing.profiles.full_name || "utilizator",
+          listing.title,
+          listing.slug
+        );
+      } else {
+        await sendListingRejectedEmail(
+          listing.profiles.email,
+          listing.profiles.full_name || "utilizator",
+          listing.title
+        );
+      }
+    }
   }
 
   revalidatePath("/admin");
@@ -60,40 +78,6 @@ export async function PATCH(request: NextRequest) {
   revalidatePath("/");
 
   return NextResponse.json({ listing: data });
-}
-
-import { sendListingApprovedEmail, sendListingRejectedEmail } from "@/lib/emails";
-
-// Dupa update status
-if (status === "active") {
-  const { data: listing } = await adminSupabase
-    .from("listings")
-    .select("title, slug, profiles(email, full_name)")
-    .eq("id", id)
-    .single() as { data: any };
-  
-  if (listing?.profiles?.email) {
-    await sendListingApprovedEmail(
-      listing.profiles.email,
-      listing.profiles.full_name || "utilizator",
-      listing.title,
-      listing.slug
-    );
-  }
-} else if (status === "rejected") {
-  const { data: listing } = await adminSupabase
-    .from("listings")
-    .select("title, profiles(email, full_name)")
-    .eq("id", id)
-    .single() as { data: any };
-  
-  if (listing?.profiles?.email) {
-    await sendListingRejectedEmail(
-      listing.profiles.email,
-      listing.profiles.full_name || "utilizator",
-      listing.title
-    );
-  }
 }
 
 export async function DELETE(request: NextRequest) {
