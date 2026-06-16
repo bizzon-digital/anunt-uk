@@ -278,7 +278,7 @@ export default function MessagesClient({
 
         {/* CHAT */}
         <div className={cn(
-          "flex-1 flex flex-col bg-[#FAF7F2]",
+          "flex-1 flex flex-col bg-[#FAF7F2] min-w-0 overflow-hidden",
           !activeConv ? "hidden lg:flex" : "flex"
         )}>
           {!activeConv ? (
@@ -352,7 +352,7 @@ export default function MessagesClient({
                 </Link>
               )}
 
-              <div className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-3 overflow-x-hidden">
+              <div className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-3 w-full overflow-hidden">
                 {messages.length === 0 ? (
                   <div className="flex-1 flex items-center justify-center">
                     <p className="text-sm text-gray-400">Niciun mesaj inca. Fii primul!</p>
