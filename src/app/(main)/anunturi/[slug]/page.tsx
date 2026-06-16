@@ -53,7 +53,7 @@ export default function AnuntPage() {
 
       const { data: alte } = await supabase
         .from("listings")
-        .select("id, title, price, price_unit, category, slug, images")
+        .select("id, title, price, price_unit, category, slug, images, location, description, contact_methods, phone, whatsapp, price_type, bills_included, user_id, views, created_at, listing_id, is_promoted")
         .eq("user_id", data.user_id)
         .eq("status", "active")
         .neq("id", data.id)
