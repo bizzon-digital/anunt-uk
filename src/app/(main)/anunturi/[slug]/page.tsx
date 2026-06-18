@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -34,6 +34,7 @@ export default function AnuntPage() {
   const [currentImage, setCurrentImage] = useState(0);
   const [showReport, setShowReport] = useState(false);
   const [reportReason, setReportReason] = useState("");
+  const [showLightbox, setShowLightbox] = useState(false);
 
   useEffect(() => {
     fetchAnunt();
@@ -143,10 +144,10 @@ export default function AnuntPage() {
               <img
                 src={images[currentImage]}
                 alt={anunt.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover cursor-zoom-in"
+                onClick={() => setShowLightbox(true)}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center">
                 <Icon size={64} className="text-gray-300" />
               </div>
             )}
@@ -204,7 +205,7 @@ export default function AnuntPage() {
             <h1 className="text-xl font-semibold text-gray-900 mb-2 leading-tight">{anunt.title}</h1>
             <div className="text-2xl font-bold text-[#E36414] mb-3">
               {anunt.price ? (
-                <>£{anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></>
+                <>Â£{anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></>
               ) : (
                 <span className="text-lg text-gray-500 font-normal">La cerere</span>
               )}
@@ -289,7 +290,7 @@ export default function AnuntPage() {
               <ul className="flex flex-col gap-1">
                 {["Intalneste-te intr-un loc public", "Nu trimite bani in avans", "Verifica identitatea proprietarului", "Citeste contractul cu atentie"].map((tip) => (
                   <li key={tip} className="text-xs text-[#7c5c3a] flex gap-2">
-                    <span className="text-[#E36414] flex-shrink-0">·</span>{tip}
+                    <span className="text-[#E36414] flex-shrink-0">Â·</span>{tip}
                   </li>
                 ))}
               </ul>
@@ -307,9 +308,9 @@ export default function AnuntPage() {
         <div className="hidden lg:flex flex-col gap-4">
           <div className="bg-white border border-gray-100 rounded-xl p-4 sticky top-20">
             <div className="text-2xl font-bold text-[#E36414] mb-1">
-              {anunt.price ? <>£{anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></> : <span className="text-lg text-gray-500 font-normal">La cerere</span>}
+              {anunt.price ? <>Â£{anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></> : <span className="text-lg text-gray-500 font-normal">La cerere</span>}
             </div>
-            <p className="text-xs text-gray-400 mb-4">{anunt.price_type === "negociabil" ? "Pret negociabil" : "Pret fix"}{anunt.bills_included ? " · Bills incluse" : ""}</p>
+            <p className="text-xs text-gray-400 mb-4">{anunt.price_type === "negociabil" ? "Pret negociabil" : "Pret fix"}{anunt.bills_included ? " Â· Bills incluse" : ""}</p>
             <div className="flex flex-col gap-2">
               {anunt.contact_methods?.includes("whatsapp") && anunt.whatsapp && (
                 <a href={`https://wa.me/${anunt.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white font-medium py-3 rounded-xl flex items-center justify-center gap-2 text-sm">
@@ -452,7 +453,7 @@ export default function AnuntPage() {
                           </div>
                           <div className="p-1.5">
                             <p className="text-[10px] font-medium text-gray-700 leading-tight truncate">{a.title}</p>
-                            <p className="text-[10px] text-[#E36414] font-semibold mt-0.5">{a.price ? `£${a.price}` : "La cerere"}</p>
+                            <p className="text-[10px] text-[#E36414] font-semibold mt-0.5">{a.price ? `Â£${a.price}` : "La cerere"}</p>
                           </div>
                         </Link>
                       );
@@ -512,6 +513,26 @@ export default function AnuntPage() {
         </div>
       )}
 
+      {/* LIGHTBOX */}
+      {showLightbox && (
+        <div
+          style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          onClick={() => setShowLightbox(false)}
+        >
+          <button
+            style={{ position: 'absolute', top: '16px', right: '16px', color: 'white', zIndex: 10000, background: 'none', border: 'none', cursor: 'pointer' }}
+            onClick={(e) => { e.stopPropagation(); setShowLightbox(false); }}
+          >
+            <X size={28} />
+          </button>
+          <img
+            src={images[currentImage]}
+            alt=""
+            style={{ maxWidth: '90vw', maxHeight: '85vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
       {/* MODAL REPORT */}
       {showReport && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
