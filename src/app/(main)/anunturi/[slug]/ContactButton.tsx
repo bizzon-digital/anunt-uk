@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -62,7 +62,7 @@ export default function ContactButton({
         {loading ? "Se incarca..." : "Trimite mesaj"}
       </button>
       {sellerPhone && (
-        
+          <a
           href={`tel:${sellerPhone}`}
           className="w-full bg-white border border-gray-200 text-gray-700 font-medium py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
         >
