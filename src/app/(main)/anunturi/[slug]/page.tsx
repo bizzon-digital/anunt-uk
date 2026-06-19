@@ -109,6 +109,14 @@ export default function AnuntPage() {
   const Icon = getCategoryIcon(anunt.category);
   const images = anunt.images || [];
   const hasImages = images.length > 0;
+  const goToPreviousImage = () => {
+    if (images.length <= 1) return;
+    setCurrentImage((image) => (image === 0 ? images.length - 1 : image - 1));
+  };
+  const goToNextImage = () => {
+    if (images.length <= 1) return;
+    setCurrentImage((image) => (image === images.length - 1 ? 0 : image + 1));
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto">
@@ -162,13 +170,13 @@ export default function AnuntPage() {
             {hasImages && images.length > 1 && (
               <>
                 <button
-                  onClick={() => setCurrentImage(Math.max(0, currentImage - 1))}
+                  onClick={goToPreviousImage}
                   className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white"
                 >
                   <ChevronLeft size={18} />
                 </button>
                 <button
-                  onClick={() => setCurrentImage(Math.min(images.length - 1, currentImage + 1))}
+                  onClick={goToNextImage}
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white"
                 >
                   <ChevronRight size={18} />
@@ -206,7 +214,7 @@ export default function AnuntPage() {
             <h1 className="text-xl font-semibold text-gray-900 mb-2 leading-tight">{anunt.title}</h1>
             <div className="text-2xl font-bold text-[#E36414] mb-3">
               {anunt.price ? (
-                <>Ã‚GBP {anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></>
+                <><span>{"\u00a3"}</span>{anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></>
               ) : (
                 <span className="text-lg text-gray-500 font-normal">La cerere</span>
               )}
@@ -291,7 +299,7 @@ export default function AnuntPage() {
               <ul className="flex flex-col gap-1">
                 {["Intalneste-te intr-un loc public", "Nu trimite bani in avans", "Verifica identitatea proprietarului", "Citeste contractul cu atentie"].map((tip) => (
                   <li key={tip} className="text-xs text-[#7c5c3a] flex gap-2">
-                    <span className="text-[#E36414] flex-shrink-0">Ã‚-</span>{tip}
+                    <span className="text-[#E36414] flex-shrink-0">{"\u2022"}</span>{tip}
                   </li>
                 ))}
               </ul>
@@ -309,9 +317,9 @@ export default function AnuntPage() {
         <div className="hidden lg:flex flex-col gap-4">
           <div className="bg-white border border-gray-100 rounded-xl p-4 sticky top-20">
             <div className="text-2xl font-bold text-[#E36414] mb-1">
-              {anunt.price ? <>Ã‚GBP {anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></> : <span className="text-lg text-gray-500 font-normal">La cerere</span>}
+              {anunt.price ? <><span>{"\u00a3"}</span>{anunt.price}<span className="text-sm text-gray-400 font-normal ml-1">/ {anunt.price_unit}</span></> : <span className="text-lg text-gray-500 font-normal">La cerere</span>}
             </div>
-            <p className="text-xs text-gray-400 mb-4">{anunt.price_type === "negociabil" ? "Pret negociabil" : "Pret fix"}{anunt.bills_included ? " Ã‚- Bills incluse" : ""}</p>
+            <p className="text-xs text-gray-400 mb-4">{anunt.price_type === "negociabil" ? "Pret negociabil" : "Pret fix"}{anunt.bills_included ? " - Bills incluse" : ""}</p>
             <div className="flex flex-col gap-2">
               {anunt.contact_methods?.includes("whatsapp") && anunt.whatsapp && (
                 <a href={`https://wa.me/${anunt.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] text-white font-medium py-3 rounded-xl flex items-center justify-center gap-2 text-sm">
@@ -454,7 +462,7 @@ export default function AnuntPage() {
                           </div>
                           <div className="p-1.5">
                             <p className="text-[10px] font-medium text-gray-700 leading-tight truncate">{a.title}</p>
-                            <p className="text-[10px] text-[#E36414] font-semibold mt-0.5">{a.price ? `Ã‚GBP ${a.price}` : "La cerere"}</p>
+                            <p className="text-[10px] text-[#E36414] font-semibold mt-0.5">{a.price ? `\u00a3${a.price}` : "La cerere"}</p>
                           </div>
                         </Link>
                       );
@@ -532,6 +540,27 @@ export default function AnuntPage() {
             style={{ maxWidth: '90vw', maxHeight: '85vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
             onClick={(e) => e.stopPropagation()}
           />
+          {images.length > 1 && (
+            <>
+              <button
+                style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', width: '44px', height: '44px', borderRadius: '9999px', color: 'white', zIndex: 10000, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.25)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                onClick={(e) => { e.stopPropagation(); goToPreviousImage(); }}
+                aria-label="Poza anterioara"
+              >
+                <ChevronLeft size={26} />
+              </button>
+              <button
+                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', width: '44px', height: '44px', borderRadius: '9999px', color: 'white', zIndex: 10000, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.25)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                onClick={(e) => { e.stopPropagation(); goToNextImage(); }}
+                aria-label="Poza urmatoare"
+              >
+                <ChevronRight size={26} />
+              </button>
+              <div style={{ position: 'absolute', bottom: '18px', left: '50%', transform: 'translateX(-50%)', color: 'white', background: 'rgba(0,0,0,0.45)', borderRadius: '9999px', padding: '4px 12px', fontSize: '13px', zIndex: 10000 }}>
+                {currentImage + 1} / {images.length}
+              </div>
+            </>
+          )}
         </div>
       )}
       {/* MODAL REPORT */}
