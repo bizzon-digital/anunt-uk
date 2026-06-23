@@ -7,6 +7,7 @@ import {
 import { createClient } from "@/lib/supabase/server";
 import { cn, timeAgo } from "@/lib/utils";
 import HomeClient from "./HomeClient";
+export const revalidate = 60; // revalidate every 60 seconds
 
 const CATEGORII = [
   { id: "chirie", label: "Chirie", icon: Home, color: "text-[#2D6A4F]", bg: "bg-[#E8F4EF]" },
