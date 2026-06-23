@@ -106,17 +106,9 @@ export default function AnuntPage() {
     );
   }
 
-  const Icon = getCategoryIcon(anunt.category);
   const images = anunt.images || [];
   const hasImages = images.length > 0;
-  const goToPreviousImage = () => {
-    if (images.length <= 1) return;
-    setCurrentImage((image) => (image === 0 ? images.length - 1 : image - 1));
-  };
-  const goToNextImage = () => {
-    if (images.length <= 1) return;
-    setCurrentImage((image) => (image === images.length - 1 ? 0 : image + 1));
-  };
+  const Icon = getCategoryIcon(anunt.category);
 
   return (
     <div className="w-full max-w-6xl mx-auto">
