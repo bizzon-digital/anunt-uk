@@ -159,13 +159,13 @@ export default function AnuntPage() {
             {hasImages && images.length > 1 && (
               <>
                 <button
-                  onClick={goToPreviousImage}
+                  onClick={() => setCurrentImage(Math.max(0, currentImage - 1))}
                   className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white"
                 >
                   <ChevronLeft size={18} />
                 </button>
                 <button
-                  onClick={goToNextImage}
+                  onClick={() => setCurrentImage(Math.min(images.length - 1, currentImage + 1))}
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white"
                 >
                   <ChevronRight size={18} />
@@ -533,14 +533,14 @@ export default function AnuntPage() {
             <>
               <button
                 style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', width: '44px', height: '44px', borderRadius: '9999px', color: 'white', zIndex: 10000, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.25)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                onClick={(e) => { e.stopPropagation(); goToPreviousImage(); }}
+                onClick={(e) => { e.stopPropagation(); setCurrentImage(Math.max(0, currentImage - 1)); }}
                 aria-label="Poza anterioara"
               >
                 <ChevronLeft size={26} />
               </button>
               <button
                 style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', width: '44px', height: '44px', borderRadius: '9999px', color: 'white', zIndex: 10000, background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.25)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                onClick={(e) => { e.stopPropagation(); goToNextImage(); }}
+                onClick={(e) => { e.stopPropagation(); setCurrentImage(Math.min(images.length - 1, currentImage + 1)); }}
                 aria-label="Poza urmatoare"
               >
                 <ChevronRight size={26} />
@@ -578,4 +578,5 @@ export default function AnuntPage() {
     </div>
   );
 }
+
 
