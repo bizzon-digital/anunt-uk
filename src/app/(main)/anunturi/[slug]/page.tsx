@@ -140,15 +140,15 @@ export default function AnuntPage() {
         <div className="lg:col-span-2">
           {/* GALERIE */}
           <div
-  className={cn("relative bg-[#F0EBE3] lg:rounded-xl overflow-hidden", hasImages ? "aspect-[4/3]" : "hidden")}
+            className={cn("relative bg-[#F0EBE3] lg:rounded-xl overflow-hidden", hasImages ? "aspect-[4/3]" : "hidden")}>
             {hasImages && (
-  <img
-    src={images[currentImage]}
-    alt={anunt.title}
-    className="w-full h-full object-cover cursor-zoom-in"
-    onClick={() => setShowLightbox(true)}
-  />
-)}
+              <img
+                src={images[currentImage]}
+                alt={anunt.title}
+                className="w-full h-full object-cover cursor-zoom-in"
+                onClick={() => setShowLightbox(true)}
+              />
+            )}
 
             {anunt.is_promoted && (
               <div className="absolute top-3 left-0 bg-[#E36414] text-white text-xs font-medium px-3 py-1 rounded-r-lg flex items-center gap-1.5">
