@@ -12,7 +12,7 @@ import {
 import { createClient } from "@/lib/supabase/client";
 import { cn, timeAgo } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-export const revalidate = 60; // revalidate every 60 seconds
+
 
 function getCategoryIcon(category: string) {
   const icons: Record<string, any> = {
