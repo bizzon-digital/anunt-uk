@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import {
   Home, Briefcase, Car, Wrench, ShoppingBag,
   Calendar, Heart, MoreHorizontal, MapPin, Clock,
@@ -203,7 +203,9 @@ export default async function HomePage() {
                             {anunt.images?.[0] ? (
                               <img src={anunt.images[0]} alt={anunt.title} className="w-full h-full object-cover" />
                             ) : (
-                              <Icon size={40} className="text-gray-300" />
+                              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+  <Icon size={28} className="text-gray-300" />
+</div>
                             )}
                             <div className="absolute top-0 left-0 right-0 bg-[#E36414] text-white text-[10px] font-medium text-center py-1 flex items-center justify-center gap-1">
                               ⭐ Anunt promovat
