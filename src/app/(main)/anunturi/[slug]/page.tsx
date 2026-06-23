@@ -147,22 +147,16 @@ export default function AnuntPage() {
         {/* STANGA */}
         <div className="lg:col-span-2">
           {/* GALERIE */}
-          <div className="relative bg-[#F0EBE3] aspect-[4/3] lg:rounded-xl overflow-hidden">
-            {hasImages ? (
-              <img
-                src={images[currentImage]}
-                alt={anunt.title}
-                className="w-full h-full object-cover cursor-zoom-in"
-                onClick={() => setShowLightbox(true)}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#E8F4EF] to-[#F0EBE3]">
-  <Icon size={48} className="text-gray-300 mb-2" />
-  <p className="text-sm text-gray-400 font-medium">Fără fotografii</p>
-</div>
-              </div>
-            )}
+          <div
+  className={cn("relative bg-[#F0EBE3] lg:rounded-xl overflow-hidden", hasImages ? "aspect-[4/3]" : "hidden")}
+            {hasImages && (
+  <img
+    src={images[currentImage]}
+    alt={anunt.title}
+    className="w-full h-full object-cover cursor-zoom-in"
+    onClick={() => setShowLightbox(true)}
+  />
+)}
 
             {anunt.is_promoted && (
               <div className="absolute top-3 left-0 bg-[#E36414] text-white text-xs font-medium px-3 py-1 rounded-r-lg flex items-center gap-1.5">
