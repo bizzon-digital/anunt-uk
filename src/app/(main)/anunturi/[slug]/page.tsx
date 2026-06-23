@@ -157,7 +157,10 @@ export default function AnuntPage() {
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <Icon size={64} className="text-gray-300" />
+                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#E8F4EF] to-[#F0EBE3]">
+  <Icon size={48} className="text-gray-300 mb-2" />
+  <p className="text-sm text-gray-400 font-medium">Fără fotografii</p>
+</div>
               </div>
             )}
 
