@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({ 
@@ -15,10 +15,10 @@ export async function generateMetadata({
 
   if (!anunt) return { title: "Anunt negasit" };
 
-  const title = `${anunt.title} — ${anunt.location}`;
+  const title = `${anunt.title} â€” ${anunt.location}`;
   const description = anunt.description
     ? anunt.description.substring(0, 160)
-    : `${anunt.category} in ${anunt.location}${anunt.price ? ` — £${anunt.price}` : ""}`;
+    : `${anunt.category} in ${anunt.location}${anunt.price ? ` â€” GBP ${anunt.price}` : ""}`;
 
   return {
     title,
