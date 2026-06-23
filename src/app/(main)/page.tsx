@@ -269,18 +269,16 @@ export default async function HomePage() {
                           href={`/anunturi/${anunt.slug}`}
                           className="bg-white border border-gray-100 rounded-xl overflow-hidden flex hover:border-gray-200 hover:shadow-md transition-all group"
                         >
-                          <div className="w-28 min-h-[104px] bg-[#F0EBE3] flex-shrink-0 flex items-center justify-center relative overflow-hidden">
-                            {anunt.images?.[0] && (
-                            <div className="w-28 min-h-[104px] bg-[#F0EBE3] flex-shrink-0 flex items-center justify-center relative overflow-hidden">
+                          {anunt.images?.[0] && (
+                            <div className="w-28 min-h-[104px] bg-[#F0EBE3] flex-shrink-0 relative overflow-hidden">
                               <img src={anunt.images[0]} alt={anunt.title} className="w-full h-full object-cover" />
                               {anunt.images?.length > 1 && (
                                 <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[9px] text-center py-0.5">
                                   {anunt.images.length} foto
-      </div>
-    )}
-  </div>
-)}
-                          </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
                           <div className="flex-1 p-3 min-w-0">
                             <p className={cn("text-[10px] font-semibold uppercase tracking-wide mb-0.5", categoryColor)}>
                               {anunt.category}
