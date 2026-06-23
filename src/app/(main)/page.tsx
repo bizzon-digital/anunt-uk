@@ -271,11 +271,11 @@ export default async function HomePage() {
                         >
                           <div className="w-28 min-h-[104px] bg-[#F0EBE3] flex-shrink-0 flex items-center justify-center relative overflow-hidden">
                             {anunt.images?.[0] && (
-  <div className="w-28 min-h-[104px] bg-[#F0EBE3] flex-shrink-0 flex items-center justify-center relative overflow-hidden">
-    <img src={anunt.images[0]} alt={anunt.title} className="w-full h-full object-cover" />
-    {anunt.images?.length > 1 && (
-      <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[9px] text-center py-0.5">
-        {anunt.images.length} foto
+                            <div className="w-28 min-h-[104px] bg-[#F0EBE3] flex-shrink-0 flex items-center justify-center relative overflow-hidden">
+                              <img src={anunt.images[0]} alt={anunt.title} className="w-full h-full object-cover" />
+                              {anunt.images?.length > 1 && (
+                                <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[9px] text-center py-0.5">
+                                  {anunt.images.length} foto
       </div>
     )}
   </div>
