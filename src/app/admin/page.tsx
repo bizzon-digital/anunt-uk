@@ -5,10 +5,10 @@ export default async function AdminPage() {
   const supabase = createAdminClient();
 
   const { data: listings } = await supabase
-    .from("listings")
-    .select("*, profiles(id, full_name, email, avatar_url)")
-    .order("created_at", { ascending: false })
-    .limit(50);
+  .from("listings")
+  .select("*, profiles(id, full_name, email, avatar_url)")
+  .order("created_at", { ascending: false })
+  .limit(200);
 
   const { data: profiles } = await supabase
     .from("profiles")
