@@ -81,15 +81,20 @@ export default async function HomePage() {
     .from("profiles")
     .select("*", { count: "exact", head: true });
 
-  const categoryCountPromises = CATEGORII.map(async (cat) => {
-    const { count } = await supabase
-      .from("listings")
-      .select("*", { count: "exact", head: true })
-      .eq("status", "active")
-      .eq("category", cat.id);
-    return { ...cat, count: count || 0 };
-  });
-  const categoriiCuCount = await Promise.all(categoryCountPromises);
+  const { data: categoryCounts } = await supabase
+  .from("listings")
+  .select("category")
+  .eq("status", "active");
+
+const countMap: Record<string, number> = {};
+categoryCounts?.forEach((l) => {
+  countMap[l.category] = (countMap[l.category] || 0) + 1;
+});
+
+const categoriiCuCount = CATEGORII.map((cat) => ({
+  ...cat,
+  count: countMap[cat.id] || 0,
+}));
 
   return (
     <div>
